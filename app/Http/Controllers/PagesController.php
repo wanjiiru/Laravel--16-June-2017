@@ -14,15 +14,13 @@ class PagesController extends Controller
         return view ( 'blogs.index', ['blogs' => $blogs] );
     }
 
+
     public function create ()
     {
         return view ( 'blogs.create' );
-
     }
 
-    /**
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
+
     public function store ()
     {
         $this->validate ( request (), ['title' => 'required', 'content' => 'required'] );
@@ -31,11 +29,7 @@ class PagesController extends Controller
         return redirect ( '/blogs/create' );
     }
 
-    /**
-     * @param $id
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     * @internal param Blog $blog
-     */
+
     public function destroy ($id )
     {
         $blog = Blog::findOrFail ( $id );
@@ -52,11 +46,6 @@ class PagesController extends Controller
     }
 
 
-    /**
-     * @param $id
-     * @param PostRequest $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
     public function update(Request $request, $id)
     {
         $blog = Blog::findOrFail($id);
@@ -64,11 +53,10 @@ class PagesController extends Controller
         return redirect ('\blogs');
     }
 
-    /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
+
     public function postForm ()
     {
         return view ( 'form' );
     }
+
 }
