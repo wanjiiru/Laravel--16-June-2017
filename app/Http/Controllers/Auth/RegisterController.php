@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Mail\Welcome;
@@ -56,11 +57,13 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create(['name' => $data['name'], 'email' => $data['email'], 'password' => bcrypt($data['password']),]);
+        $user = User::create(['name' => $data['name'], 'email' => $data['email'], 'password' => bcrypt($data['password']),]);
+        $this->notifyUser($user);
+        return $user;
     }
 
     public function notifyUser($user)
     {
-        \Mail::to($user)->send(new Welcome);
+        Mail::to($user)->send(new Welcome);
     }
 }

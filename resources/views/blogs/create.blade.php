@@ -1,10 +1,7 @@
-<!doctype html>
-<html>
-<head>
-    <title>Laravel Blog Sample</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-</head>
-<body>
+@extends('layouts.app')
+
+@section('content')
+
 <h2>Create Blogs </h2>
 <section class="container">
     <div class="row">
@@ -36,5 +33,4 @@
         @endif
     </div>
 </section>
-</body>
-</html>
+@endsection
