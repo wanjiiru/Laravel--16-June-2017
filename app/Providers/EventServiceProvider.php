@@ -12,9 +12,11 @@ class EventServiceProvider extends ServiceProvider
      *
      * @var array
      */
+
+
     protected $listen = [
-        'App\Events\Event' => [
-            'App\Listeners\EventListener',
+        'App\Events\BlogWasCreated' => [
+            'App\Listeners\EmailUserAboutCreatedBlog',
         ],
     ];
 
@@ -23,9 +25,9 @@ class EventServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot ()
     {
-        parent::boot();
+        parent::boot ();
 
         //
     }

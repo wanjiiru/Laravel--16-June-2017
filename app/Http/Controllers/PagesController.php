@@ -15,6 +15,13 @@ class PagesController extends Controller
     }
 
 
+    public function show ( $id )
+    {
+        $blog = Blog::findOrFail ( $id );
+        return view ( 'blogs.show', compact ( 'blog' ) );
+    }
+
+
     public function create ()
     {
         return view ( 'blogs.create' );
@@ -26,37 +33,40 @@ class PagesController extends Controller
         $this->validate ( request (), ['title' => 'required', 'content' => 'required'] );
         $input = request ()->all ();
         Blog::create ( $input );
-        return redirect ( '/blogs/create' );
+        return redirect ( '/blogs/' );
     }
 
 
-    public function destroy ($id )
+    public function destroy ( $id )
+    {
+        $blog = Blog::findorFail ( $id );
+        if ( $blog->delete () ) {
+            return response ()->json ( array('msg' => 'Post deleted successfully', 'status' => 'success') );
+        } else {
+            return response ()->json ( array('msg' => 'Post not deleted. Please try again', 'status' => 'failed') );
+        }
+    }
+
+    /**
+     * @return mixed
+     */
+
+
+    public function edit ( $id )
     {
         $blog = Blog::findOrFail ( $id );
-        $blog->delete ();
-        return Redirect::to ( '/blogs' )
-            ->with ( 'message', 'Successfully deleted!' );
+        return view ( 'blogs.edit', compact ( 'blog' ) );
     }
 
 
-    public function edit($id)
+    public function update ( Request $request, $id )
     {
-        $blog = Blog::findOrFail($id);
-        return view('blogs.edit', compact('blog'));
+        $blog = Blog::findOrFail ( $id );
+
+        $blog->update ( $request->all () );
+        return redirect ( '\blogs' );
     }
 
-
-    public function update(Request $request, $id)
-    {
-        $blog = Blog::findOrFail($id);
-        $blog->update($request->all());
-        return redirect ('\blogs');
-    }
-
-
-    public function postForm ()
-    {
-        return view ( 'form' );
-    }
 
 }
+

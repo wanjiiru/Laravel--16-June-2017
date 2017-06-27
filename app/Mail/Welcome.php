@@ -11,12 +11,13 @@ class Welcome extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public function __construct()
+    public function __construct ()
     {
 
     }
-    public function build()
+
+    public function build ()
     {
-        return $this->view('emails.Welcome');
+        return $this->view ( 'emails.Welcome' );
     }
 }
